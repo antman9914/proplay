@@ -1,0 +1,72 @@
+## Example
+
+Task Goal
+Measure the melting point of unknown substance X. Place it in the orange box if above 100°C, or in the yellow box if below 100°C.
+
+Available Workflows
+
+### Navigate to Location and Explore
+Purpose: Move to a specified location and look around to find objects or features.
+Steps:
+1. If door to `<location>` is closed, open door to `<location>`
+2. go to `<location>`
+3. look around
+
+### Pick Up Object
+Purpose: Acquire an object into inventory.
+Steps:
+1. pick up `<object>`
+
+### Measure Temperature with Thermometer
+Purpose: Measure and record the temperature of an object or substance.
+Steps:
+1. pick up thermometer
+2. use thermometer on `<object>`
+3. focus on thermometer to record the reading
+
+### Move Object to Container or Location
+Purpose: Transport an object to a specified container or location.
+Steps:
+1. pick up `<object>` (if not already held)
+2. go to `<location>`
+3. look around (to find target container or spot)
+4. move `<object>` to `<container or location>`
+
+Known Workflow Transitions (from past experience)
+Sorted by avg reward (higher = this sequence tended to produce better outcomes).
+- 'Navigate to Location and Explore' → 'Pick Up Object' (avg reward: 0.85, 8 trials)
+- 'Pick Up Object' → 'Measure Temperature with Thermometer' (avg reward: 0.72, 5 trials)
+- 'Measure Temperature with Thermometer' → 'Move Object to Container or Location' (avg reward: 0.68, 4 trials)
+
+Past Episode Experiences
+Each entry below contains a "Failed steps" line. Read the full action sequence carefully to understand why the episode did not fully succeed. Identify the root cause of failure, then design your plan for the current task to reason around that cause.
+Task: Measure the melting point of unknown substance X. Place it in the orange box if above 100°C, or in the yellow box if below 100°C.
+Actions: look around → pick up thermometer → pick up substance X → use thermometer on substance X → focus on thermometer → wait1 → wait1 → wait1 → wait1 → wait1 → move substance X to orange box → move substance X to yellow box
+Successful steps: pick up thermometer, pick up substance X, use thermometer on substance X, focus on thermometer (+0.75)
+Failed steps: move substance X to orange box [x], move substance X to yellow box [x]
+
+Generate a plan for this task. Use the workflow graph as evidence — follow known sequences where they apply, and add or modify steps based on your understanding of the task.
+
+<plan>
+1. Navigate to Location and Explore
+   - if door is closed, open it
+   - look around to locate the thermometer
+
+2. Pick Up Object
+   - pick up thermometer
+
+3. Navigate to Location and Explore
+   - if door is closed, open it
+   - look around to locate substance X
+
+4. Pick Up Object
+   - pick up substance X
+
+5. Measure Temperature with Thermometer
+   - use thermometer on substance X
+   - focus on thermometer to record the melting point
+
+6. Move Object to Container or Location
+   - if melting point above 100°C, move substance X to orange box
+   - if melting point below 100°C, move substance X to yellow box
+</plan>

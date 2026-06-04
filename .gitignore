@@ -1,0 +1,35 @@
+# Generated data splits — run data/*/gen_splits.py to regenerate
+data/sciworld/splits/
+data/plancraft/splits/
+
+# Generated workflow libraries and graphs (produced at runtime)
+benchmarks/sciworld/workflow/
+benchmarks/plancraft/workflow/
+benchmarks/taubench/graph/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+
+# Logs and outputs
+logs/
+*.log
+*.jsonl
+
+# Jupyter checkpoints
+.ipynb_checkpoints/
+
+# Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store

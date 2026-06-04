@@ -1,0 +1,44 @@
+## Example
+
+Task Goal
+Hi, I placed an order two days ago for a laptop but I've changed my mind.
+Can you cancel it? My email is alice@example.com.
+
+Available Tools
+- calculate
+- cancel_order
+- exchange_delivered_order_items
+- find_user_id_by_email
+- find_user_id_by_name_zip
+- get_order_details
+- get_product_details
+- get_user_details
+- list_all_product_types
+- modify_pending_order_items
+- modify_pending_order_payment
+- return_delivered_order_items
+- transfer_to_human_agents
+- update_user_address
+
+Known Tool Transitions (from past experience)
+Sorted by relevance to this task (higher = this sequence worked well on similar tasks).
+- 'find_user_id_by_email' → 'get_user_details' (relevance: 0.95, 18 trials)
+- 'find_user_id_by_email' → 'get_order_details' (relevance: 0.91, 15 trials)
+- 'get_order_details' → 'cancel_order' (relevance: 0.88, 12 trials)
+- 'find_user_id_by_name_zip' → 'get_order_details' (relevance: 0.74, 8 trials)
+- 'get_order_details' → 'modify_pending_order_items' (relevance: 0.52, 5 trials)
+
+Past Episode Experiences
+Each entry below contains tool call sequences from past episodes. Read carefully to understand what worked and what failed.
+Task: I want to cancel order W9999. My name is Bob Smith, zip 12345.
+Actions: find_user_id_by_name_zip → get_user_details → get_order_details → cancel_order → cancel_order
+Failed steps: find_user_id_by_name_zip → get_user_details → get_order_details → cancel_order → cancel_order
+
+Generate a plan for this task. Use the tool graph as evidence — follow known sequences where they apply, and add or modify steps based on your understanding of the task.
+
+<plan>
+1. find_user_id_by_email
+2. get_user_details
+3. get_order_details
+4. cancel_order
+</plan>

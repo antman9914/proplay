@@ -1,0 +1,36 @@
+## Example
+
+Task Goal
+Craft an item of type: wooden_pickaxe
+
+Available Recipes
+### Craft Oak Planks
+- Place 1 oak_log in any crafting slot → yields 4 oak_planks
+
+### Craft Sticks
+- Place 2 planks vertically (e.g., [A1] and [B1]) → yields 4 sticks
+
+### Craft Wooden Pickaxe
+- Place 3 planks in top row [A1][A2][A3] and 2 sticks in [B2][C2] → yields 1 wooden_pickaxe
+
+Known Recipe Transitions (from past experience)
+Sorted by relevance (higher = worked well on similar tasks).
+- 'Craft Oak Planks' → 'Craft Sticks' (relevance: 0.85, 12 trials)
+- 'Craft Sticks' → 'Craft Wooden Pickaxe' (relevance: 0.91, 10 trials)
+
+Generate a plan for this task. Use the graph as evidence — follow known sequences where they apply.
+
+<plan>
+1. Craft Oak Planks
+   - Move oak_log from inventory to any crafting slot (e.g., [A1])
+   - Take 4 oak_planks from [0] to inventory
+
+2. Craft Sticks
+   - Move 2 oak_planks to [A1] and [B1] (vertical stack)
+   - Take 4 sticks from [0] to inventory
+
+3. Craft Wooden Pickaxe
+   - Move 3 oak_planks to [A1][A2][A3] (top row)
+   - Move 2 sticks to [B2] and [C2] (middle and bottom center)
+   - Take wooden_pickaxe from [0] to inventory
+</plan>
