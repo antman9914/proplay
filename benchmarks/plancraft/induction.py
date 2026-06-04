@@ -14,7 +14,7 @@ import logging
 import re
 from pathlib import Path
 
-from prompts.proplay_prompts import (
+from prompts import (
     INDUCTION_INSTRUCTION,
     INDUCTION_ONE_SHOT,
     INDUCTION_USER,

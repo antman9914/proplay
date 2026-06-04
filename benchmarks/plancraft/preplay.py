@@ -11,7 +11,7 @@ import re
 from pathlib import Path
 from typing import List, Optional
 
-from workflow_graph import WorkflowGraph
+from graph import WorkflowGraph
 
 
 _INSTRUCTION = (Path(__file__).parent / "prompt" / "preplay_instruction.txt").read_text().strip()

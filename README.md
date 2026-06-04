@@ -34,7 +34,7 @@ This episodic query–execute–refine loop enables ProPlay to progressively int
 |-----------|--------|----------------|
 | [ScienceWorld](https://github.com/allenai/ScienceWorld) | Text-based scientific reasoning (23 task types) | `benchmarks/sciworld/` |
 | [PlanCraft](https://github.com/gautierdag/plancraft) | Minecraft crafting (187 tasks, 3 difficulty levels) | `benchmarks/plancraft/` |
-| [TAU-bench](https://github.com/sierra-research/tau-bench) | Customer service tool use (retail & airline) | `benchmarks/taubench/` |
+| [τ-bench](https://github.com/sierra-research/tau-bench) | Customer service tool use (retail & airline) | `benchmarks/taubench/` |
 
 ---
 
@@ -104,7 +104,7 @@ pip install -e .
 # Benchmark-specific dependencies
 pip install -e ".[sciworld]"   # ScienceWorld (agentenv-sciworld + scienceworld)
 pip install -e ".[plancraft]"  # PlanCraft
-# TAU-bench — install from source
+# τ-bench — install from source
 pip install git+https://github.com/sierra-research/tau-bench
 ```
 
@@ -124,7 +124,7 @@ cd data/plancraft
 python gen_splits.py          # → splits/merged_187_by_complexity.json
 ```
 
-TAU-bench task data is bundled with the `tau_bench` package — no preprocessing needed.
+τ-bench task data is bundled with the `tau_bench` package — no preprocessing needed.
 
 ---
 
@@ -147,7 +147,7 @@ export OPENAI_API_KEY=<your_key>
 bash scripts/run_plancraft.sh
 ```
 
-### TAU-bench
+### τ-bench
 
 ```bash
 export OPENAI_API_KEY=<your_key>

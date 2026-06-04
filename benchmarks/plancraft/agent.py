@@ -32,14 +32,13 @@ _HERE = Path(__file__).resolve().parent.parent
 if str(_HERE) not in sys.path:
     sys.path.insert(0, str(_HERE))
 
-from base_agent import BaseAgent, _parse_think_action
-from prompts.proplay_prompts import (
+from prompts import (
     PROPLAY_SYSTEM_TEMPLATE,
     PROPLAY_STEP_USER,
+    SYSTEM_BASE,
 )
-from prompts.shared import SYSTEM_BASE
-from induce import run_induction, build_episode_summary
-from workflow_graph import WorkflowGraph, parse_workflows
+from induction import run_induction, build_episode_summary
+from graph import WorkflowGraph, parse_workflows
 from preplay import run_preplay, format_plan_for_injection, record_execution
 
 logger = logging.getLogger(__name__)
@@ -47,6 +46,77 @@ logger = logging.getLogger(__name__)
 GRAPH_MATCH_THRESHOLD = 0.75
 PLAN_MATCH_THRESHOLD  = 0.50
 HISTORY_WINDOW = 20
+
+
+# ── Base agent ────────────────────────────────────────────────────────────────
+
+def _parse_think_action(response: str) -> tuple[str, str]:
+    """Extract (think, action) from <think>...</think><action>...</action>."""
+    think = ""
+    think_m = re.search(r'<think>(.*?)</think>', response, re.DOTALL)
+    if think_m:
+        think = think_m.group(1).strip()
+
+    action_m = re.search(r'<action>(.*?)</action>', response, re.DOTALL)
+    if action_m:
+        return think, action_m.group(1).strip()
+
+    for line in response.strip().splitlines():
+        line = line.strip()
+        if line and not line.startswith("<"):
+            return think, line
+    return think, response.strip()
+
+
+class BaseAgent:
+
+    AGENT_TYPE = "base"
+
+    def __init__(self, llm) -> None:
+        self.llm = llm
+        self._trajectory: list[dict] = []
+        self._step: int = 0
+
+    def reset(self) -> None:
+        self._trajectory = []
+        self._step = 0
+
+    def get_action(self, obs: str, task: str) -> str:
+        raise NotImplementedError
+
+    def finalize_episode(self, success: bool, task: str, reward: float) -> None:
+        pass
+
+    def _record_step(self, obs: str, action: str, raw_action: str = "", think: str = "") -> None:
+        self._trajectory.append({
+            "obs": obs, "action": action,
+            "raw_action": raw_action or action, "think": think,
+        })
+        self._step += 1
+
+    def _recent_history(self) -> list[dict]:
+        return self._trajectory[-HISTORY_WINDOW:]
+
+    def _format_history(self) -> str:
+        history = self._recent_history()
+        if not history:
+            return "(start of episode)"
+        lines = []
+        for i, t in enumerate(history):
+            step_num = self._step - len(history) + i + 1
+            lines.append(f"Step {step_num}: {t['raw_action'] or t['action']}")
+            if t.get("result_obs"):
+                lines.append(f"  → {t['result_obs'][:200]}")
+        return "\n".join(lines)
+
+    def _compact_trajectory(self) -> str:
+        lines = []
+        for i, t in enumerate(self._trajectory, 1):
+            lines.append(f"Step {i}: {t.get('raw_action') or t['action']}")
+            result = t.get("result_obs", "")
+            if result:
+                lines.append(f"  Obs: {result[:200]}")
+        return "\n".join(lines) if lines else "(empty)"
 
 _EXPERIENCE_SIM_THRESHOLD = 0.75
 

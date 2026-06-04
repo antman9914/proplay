@@ -62,7 +62,7 @@ class EpisodeResult:
 
 
 def _make_agent(args, llm):
-    from agents.proplay_agent import ProPlayAgent
+    from agent import ProPlayAgent
     return ProPlayAgent(
         llm=llm,
         workflow_path=args.workflow_path,
