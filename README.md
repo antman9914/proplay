@@ -1,6 +1,6 @@
 # ProPlay: Procedural Pre-play for Self-Evolving LLM Agents
 
-This is the official implementation of [**ProPlay: Procedural Pre-play for Self-Evolving LLM Agents**]().
+This is the official implementation of [**ProPlay: Procedural Pre-play for Self-Evolving LLM Agents**](https://arxiv.org/abs/2606.12780).
 
 ProPlay addresses the problem of self-evolving agents in partially observable environments, where agents must continually refine the internal understanding of environmental dynamics. It introduces a preplay framework built on an evolving procedural world model that encourages continual information exchange between planning and memory under a unified architecture.
 
